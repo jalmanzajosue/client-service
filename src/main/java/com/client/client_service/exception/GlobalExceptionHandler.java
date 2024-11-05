@@ -20,6 +20,7 @@ public class GlobalExceptionHandler {
                 ex.getMessage(),
                 "Resource not found"
         );
+
         ApiResponse<ErrorDetails> response = ApiResponse.error(errorDetails,404);
         return Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).body(response));
     }

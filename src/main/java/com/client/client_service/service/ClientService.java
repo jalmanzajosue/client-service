@@ -1,5 +1,6 @@
 package com.client.client_service.service;
 
+import com.client.client_service.dto.ClientDto;
 import com.client.client_service.exception.NotFoundException;
 import com.client.client_service.exception.ResourceNotFoundException;
 import com.client.client_service.model.Client;
@@ -14,7 +15,7 @@ public class ClientService {
     private ClientRepository clientRepository;
 
     public Mono<Client> getClientByUniqueCode(String codigoUnico) {
-        return clientRepository.findByUniqueCode(codigoUnico);
-
+        return clientRepository.findByUniqueCode(codigoUnico)
+                .switchIfEmpty(Mono.error(new ResourceNotFoundException("Cliente no encontrado con código único: " + codigoUnico)));
     }
 }
